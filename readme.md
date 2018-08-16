@@ -1,4 +1,7 @@
 # Introduction to creating web apps with ExpressJS
+[![Build Status](https://travis-ci.org/ayolicias/settings-bill-expressjs.svg?branch=master)](https://travis-ci.org/ayolicias/settings-bill-expressjs)
+
+
 
 In this document we will explore how to create web applications with [ExpressJS](http://http://expressjs.com/).
 
