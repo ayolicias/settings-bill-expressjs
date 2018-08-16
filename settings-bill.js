@@ -47,6 +47,17 @@ module.exports = function Settings() {
   function actions() {
     return list;
   }
+  function reset(){
+     // callCost = 0.00;
+     // smsCost = 0.00;
+     // warningLevel = 0;
+     // criticalLevel = 0;
+     setcall = 0;
+     setsms = 0;
+     settotal = 0;
+     list =[]
+   }
+
 
   function actionsFor(type) {
     const filteredActions = [];
@@ -64,7 +75,7 @@ module.exports = function Settings() {
   }
 
   function hasReachcritical() {
-    return getsettotal() >= getCritical();
+    return getsettotal() > getCritical();
   }
 
   function getsetcall() {
@@ -131,6 +142,7 @@ module.exports = function Settings() {
     hasReachcritical,
     calculateSettings,
     actions,
-    actionsFor
+    actionsFor,
+    reset
   }
 }
