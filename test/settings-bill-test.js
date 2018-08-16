@@ -31,8 +31,8 @@ describe('settings-bill', function() {
     setting.calculateSettings('criticalLevel');
     setting.calculateSettings('warningLevel');
 
-    assert.equal(setting.getWarning(), 30);
-    assert.equal(setting.getCritical(), 40);
+    assert.equal(setting.getWarning(), 20);
+    assert.equal(setting.getCritical(), 30);
     assert.equal(setting.getsetsms(), 0.75);
     assert.equal(setting.getsetcall(), 2.75);
   });

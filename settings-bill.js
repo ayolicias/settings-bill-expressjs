@@ -5,10 +5,10 @@ module.exports = function Settings() {
 
   let list = [];
 
-  let callCost =0;
-  let smsCost = 0;
-  let warningLevel = 0;
-  let criticalLevel = 0;
+  let callCost = 2.75;
+  let smsCost = 0.75;
+  let warningLevel = 20;
+  let criticalLevel = 30;
 
   function calculateSettings(settingsItem) {
     if (settingsItem === 'call') {
@@ -49,8 +49,8 @@ module.exports = function Settings() {
   }
 
   function reset() {
-    callCost ;
-    smsCost;
+    callCost = 0;
+    smsCost = 0;
     warningLevel= 20;
     criticalLevel = 30;
     setcall = 0;
