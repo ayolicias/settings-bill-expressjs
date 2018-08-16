@@ -81,7 +81,7 @@ app.get('/actions/:type', function(req, res) {
   });
 });
 
-app.get('/reset',function(req,res){
+app.get('/reset', function(req, res) {
   sett.reset();
   res.redirect('/');
 });
