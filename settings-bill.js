@@ -5,10 +5,10 @@ module.exports = function Settings() {
 
   let list = [];
 
-  let callCost = 2.75;
-  let smsCost = 0.75;
-  let warningLevel = 30;
-  let criticalLevel = 40;
+  let callCost =0;
+  let smsCost = 0;
+  let warningLevel = 0;
+  let criticalLevel = 0;
 
   function calculateSettings(settingsItem) {
     if (settingsItem === 'call') {
@@ -49,10 +49,10 @@ module.exports = function Settings() {
   }
 
   function reset() {
-    // callCost = 0.00;
-    // smsCost = 0.00;
-    // warningLevel = 0;
-    // criticalLevel = 0;
+    callCost ;
+    smsCost;
+    warningLevel= 20;
+    criticalLevel = 30;
     setcall = 0;
     setsms = 0;
     settotal = 0;
@@ -88,19 +88,19 @@ module.exports = function Settings() {
   }
 
   function getcall() {
-    return setcall;
+    return setcall.toFixed(2);
   }
 
   function getsms() {
-    return setsms
+    return setsms.toFixed(2)
   }
 
   function gettotal() {
-    return settotal
+    return settotal.toFixed(2)
   }
 
   function getsettotal() {
-    return settotal;
+    return settotal.toFixed(2);
   }
 
   function getWarning() {
@@ -113,7 +113,7 @@ module.exports = function Settings() {
 
   function settingCalls(num) {
     callCost = parseFloat(num);
-  }
+  }getsettotal
 
   function settingSms(num) {
     smsCost = parseFloat(num);
