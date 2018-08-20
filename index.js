@@ -3,11 +3,17 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const Settings = require('./settings-bill');
 const app = express();
-
+let Moment = require('moment')
+let moment = Moment()
 const sett = Settings();
 
 app.engine('handlebars', exphbs({
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+  helper: {
+    'changeDate': function() {
+    return moment(this.time).fromNow();
+    }
+  }
 }));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({
@@ -29,9 +35,9 @@ app.get('/', function(req, res) {
 
   let color;
 
-  if (grandtotals >= critical) {
+  if (critical > 0 && grandtotals >= critical) {
     color = "danger";
-  } else if (grandtotals >= warnings) {
+  } else if (warnings > 0 && grandtotals >= warnings) {
     color = "warning";
 
   }
@@ -69,6 +75,7 @@ app.post('/action', function(req, res) {
 });
 
 app.get('/actions', function(req, res) {
+  sett.timestamp()
   res.render('actions', {
     actionsArray: sett.actions()
   });
@@ -76,8 +83,9 @@ app.get('/actions', function(req, res) {
 
 app.get('/actions/:type', function(req, res) {
   let actions = req.params.type;
+  sett.timestamp()
   res.render('actions', {
-    actionsArray: sett.actionsFor(actions)
+    actionsArray: sett.actions(actions)
   });
 });
 

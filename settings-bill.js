@@ -1,3 +1,5 @@
+var Moment = require('moment');
+let moment = Moment()
 module.exports = function Settings() {
   let setcall = 0;
   let setsms = 0;
@@ -13,12 +15,11 @@ module.exports = function Settings() {
   function calculateSettings(settingsItem) {
     if (settingsItem === 'call') {
       setcall += callCost;
-      settotal += callCost;
-
+      settotal = callCost;
       list.push({
         type: settingsItem,
         cost: settotal,
-        time: new Date()
+        time: new Date(),
       });
       if (settotal > criticalLevel) {
         let diff = settotal - criticalLevel;
@@ -29,10 +30,12 @@ module.exports = function Settings() {
       setsms += smsCost;
       settotal += smsCost;
 
+      // let timeAgo = Moment(new Date);
       list.push({
         type: settingsItem,
         cost: settotal,
         time: new Date()
+        // ago: timeAgo
       });
 
       if (settotal > criticalLevel) {
@@ -41,33 +44,46 @@ module.exports = function Settings() {
         settotal -= diff;
       }
     }
+
     settotal = setcall + setsms;
   }
 
-  function actions() {
+  function actions(type) {
+       
+    if (type ===undefined) {
+      return list;
+
+     }
+    else {
+        return  list.filter(current=>current.type===type);
+    }
+  }
+
+  function timestamp() {
+    // const time = [];
+    for (var i = 0; i < list.length; i++) {
+      let time = Moment(list[i].time).fromNow()
+      list[i].ago = time;
+    }
     return list;
   }
 
   function reset() {
     callCost = 0;
     smsCost = 0;
-    warningLevel= 20;
-    criticalLevel = 30;
+    warningLevel = 0;
+    criticalLevel = 0;
     setcall = 0;
     setsms = 0;
     settotal = 0;
     list = []
   }
 
-
   function actionsFor(type) {
     const filteredActions = [];
-
     for (let index = 0; index < list.length; index++) {
       const actions = list[index];
-
       if (actions.type === type) {
-
         filteredActions.push(actions);
       }
     }
@@ -113,7 +129,8 @@ module.exports = function Settings() {
 
   function settingCalls(num) {
     callCost = parseFloat(num);
-  }getsettotal
+  }
+  getsettotal
 
   function settingSms(num) {
     smsCost = parseFloat(num);
@@ -144,6 +161,7 @@ module.exports = function Settings() {
     calculateSettings,
     actions,
     actionsFor,
-    reset
+    reset,
+    timestamp
   }
 }

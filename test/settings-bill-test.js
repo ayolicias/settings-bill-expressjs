@@ -23,6 +23,19 @@ describe('settings-bill', function() {
     assert.equal(2, setting.actionsFor('sms', 'call', 'sms', 'call').length);
 
   });
+
+  it('should add totalBill for call ', function() {
+    const setting = Settings();
+    setting.calculateSettings('call');
+
+    assert.equal(setting.getsetcall(), 2.75);
+  });
+  it('should add totalBill for sms ', function() {
+    const setting = Settings();
+    setting.calculateSettings('sms');
+    assert.equal(setting.getsetsms(), 0.75);
+  });
+
   it('should set callCost, smsCost,criticalLevel and warningLevel ', function() {
     const setting = Settings();
 
