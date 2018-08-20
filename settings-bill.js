@@ -14,48 +14,46 @@ module.exports = function Settings() {
 
   function calculateSettings(settingsItem) {
     if (settingsItem === 'call') {
-      setcall += callCost;
-      settotal = callCost;
-      list.push({
-        type: settingsItem,
-        cost: settotal,
-        time: new Date(),
-      });
-      if (settotal > criticalLevel) {
-        let diff = settotal - criticalLevel;
-        setcall -= diff;
-        settotal -= diff;
-      }
-    } else if (settingsItem === 'sms') {
-      setsms += smsCost;
-      settotal += smsCost;
+       setcall += callCost;
+       settotal += callCost;
+       list.push({
+         type: settingsItem,
+         cost: settotal,
+         time: new Date(),
+       });
+       if (settotal > criticalLevel) {
+         var diff = settotal - criticalLevel;
+         setcall -= diff;
+         settotal -= diff;
+       }
+     } else if (settingsItem === 'sms') {
+       setsms += smsCost;
+       settotal += smsCost;
+       list.push({
+         type: settingsItem,
+         cost: settotal,
+         time: new Date(),
+       });
+       if (settotal > criticalLevel) {
+         var diff = settotal - criticalLevel;
+         setsms -= diff;
+         settotal -= diff;
+       }
+     }
+     settotal = setcall + setsms
 
-      // let timeAgo = Moment(new Date);
-      list.push({
-        type: settingsItem,
-        cost: settotal,
-        time: new Date()
-        // ago: timeAgo
-      });
-
-      if (settotal > criticalLevel) {
-        let diff = settotal - criticalLevel;
-        setsms -= diff;
-        settotal -= diff;
-      }
-    }
-
-    settotal = setcall + setsms;
-  }
+   }
+ function hasReachcritical(){
+   return getsettotal() >= getCritical();
+ }
 
   function actions(type) {
-       
-    if (type ===undefined) {
+
+    if (type === undefined) {
       return list;
 
-     }
-    else {
-        return  list.filter(current=>current.type===type);
+    } else {
+      return list.filter(current => current.type === type);
     }
   }
 
